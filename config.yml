@@ -1,0 +1,13 @@
+version: 2.1
+orbs:
+  node: circleci/node@12.0.0
+workflows:
+  dependencies:
+    jobs:
+      - npm install
+  build:
+    jobs:
+      - npm run build
+  tests:
+    jobs:
+      - npm test
