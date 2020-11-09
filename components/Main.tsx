@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dimensions, View } from 'react-native';
-import RichTextField from './RichTextField';
+// import RichTextField from './RichTextField';
+import RichTextField2 from './RichTextField2';
 
 const isLandscape = () => {
   const dim = Dimensions.get('screen');
@@ -17,7 +18,7 @@ export default function Main() {
       </View>
     }
     <View style={{ flex: isLandscape() ? 0.7 : 1 }}>
-      <RichTextField initialHTML="" />
+      <RichTextField2 initialHTML="" />
     </View>
   </View>
 }
