@@ -24,6 +24,7 @@ jobs:
     docker:
       - image: node:dubnium-alpine
     steps:
+      - checkout
       - attach_workspace:
           at: .
       - run: npm run build
@@ -40,16 +41,12 @@ jobs:
       - run: npm test
 
 workflows:
-  dependencies:
-    jobs:
-      - dependencies
-
-  tests:
+  build:
     jobs:
       - dependencies
       - test:
           requires:
             - dependencies
-  build:
-    jobs:
-      - build
+      - build:
+          requires:
+            - test
