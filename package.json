@@ -38,6 +38,7 @@
     "typescript": "~3.9.5"
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "preset": "react-native"
   },
   "private": true

@@ -9,7 +9,7 @@ interface Props {
   onDone: (urlParam: URLParam) => void,
 }
 
-interface URLParam {
+export interface URLParam {
   title: string;
   url: string;
 }
