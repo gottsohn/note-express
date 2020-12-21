@@ -1,0 +1,52 @@
+version: 2.1
+
+docker:
+  - image: node:dubnium-alpine
+
+jobs:
+  dependencies:
+    docker:
+      - image: node:dubnium-alpine
+    steps:
+      - checkout
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: node-deps-{{ checksum "package-lock.json" }}-{{ epoch }}
+      - store_artifacts:
+          path: package-lock.lock
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  build:
+    docker:
+      - image: node:dubnium-alpine
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  test:
+    docker:
+      - image: node:dubnium-alpine
+    steps:
+      - attach_workspace:
+          at: .
+      - run: npm test
+
+workflows:
+  build:
+    jobs:
+      - dependencies
+      - test:
+          requires:
+            - dependencies
+      - build:
+          requires:
+            - test
